@@ -4,7 +4,9 @@ using System.Linq;
 using System.Web;
 using System.Web.Mvc;
 
+
 using VideoApp.Models;
+using VideoApp.ViewModels;
 
 namespace VideoApp.Controllers
 {
@@ -18,10 +20,26 @@ namespace VideoApp.Controllers
         // what is passed to View when the url is /Random ?
         public ActionResult Random()
         {
-            // 1
             var movie = new Movie() { Name = "Psycho" };
+            var customers = new List<Customer>
+            {
+                new Models.Customer { Name="Bilbo Baggins"},
+                new Models.Customer {Name="Harry Potter" }
+             };
 
-            return View(movie);
+            var viewModel = new RandomMovieViewModel
+            {
+                Movie = movie,
+                Customers=customers
+            };
+            /*
+             worse
+            ViewData["Movie"] = movie;
+
+            return View();
+            */
+
+            return View(viewModel);
 
             // Action results: types and helper methods 
             // ViewResult, View(); PartialViewResult, PartialView(); ContentResult, Content();
@@ -45,7 +63,8 @@ namespace VideoApp.Controllers
         }
 
         // **custom route**
-        public ActionResult ByReleaseDate(int? year, int month)
+        [Route("movies/released/{year}/{month:regex(\\d{4}):range(1,12)}")]
+        public ActionResult ByReleaseYear(int? year, int month)
         {
             return Content(year+"/"+month);
         }

@@ -13,6 +13,10 @@ namespace VideoApp
         {
             routes.IgnoreRoute("{resource}.axd/{*pathInfo}");
 
+            routes.MapMvcAttributeRoutes();
+
+            /*
+            
             // make a custom route 
             // **custom route**
             routes.MapRoute(
@@ -23,6 +27,8 @@ namespace VideoApp
                 // new {year= @"2000|2017", month=@"01|12"})
                 // regular expression of 4 or characters
                 new { year = @"\d{4}", month=@"\d{2}" });
+
+            */
 
             routes.MapRoute(
                 name: "Default",
