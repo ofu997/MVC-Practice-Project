@@ -15,9 +15,14 @@ namespace VideoApp
 
             // make a custom route 
             // **custom route**
-            routes.MapRoute("MoviesByReleaseDate",
+            routes.MapRoute(
+                "MoviesByReleaseDate",
                 "movies/released/{year}/{month}",
-                new { controller = "Movies", action = "ByReleaseDate" });
+                new { controller = "Movies", action = "ByReleaseDate" },
+                // constraining ranges for year and month
+                // new {year= @"2000|2017", month=@"01|12"})
+                // regular expression of 4 or characters
+                new { year = @"\d{4}", month=@"\d{2}" });
 
             routes.MapRoute(
                 name: "Default",
